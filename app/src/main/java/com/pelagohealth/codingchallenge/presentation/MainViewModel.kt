@@ -1,6 +1,5 @@
 package com.pelagohealth.codingchallenge.presentation
 
-import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pelagohealth.codingchallenge.data.repository.FactRepository
@@ -15,20 +14,25 @@ import androidx.navigation.NavController
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    var repository: FactRepository
+    private var repository: FactRepository
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(UiState())
-    val state: StateFlow<UiState> = _state
-    var navController: NavController? = null
-    var activity: Activity? = null
+    private val _state = MutableStateFlow(MainScreenState())
+    val state: StateFlow<MainScreenState> = _state
+    private lateinit var navController: NavController
 
     fun attachNavController(controller: NavController) {
         this.navController = controller
     }
 
-    fun attach(activity: Activity) {
-        this.activity = activity
+    init {
+        GlobalScope.launch {
+            fetchNewFact()
+        }
+    }
+
+    fun navigateToSecondScreen() {
+        navController.navigate("history")
     }
 
     fun fetchNewFact() {
@@ -38,7 +42,7 @@ class MainViewModel @Inject constructor(
                 .onSuccess { fact ->
                     val prev = _state.value.current
                     val recent = (listOfNotNull(prev) + _state.value.recent).take(3)
-                    _state.value = UiState(current = fact, recent = recent)
+                    _state.value = MainScreenState(current = fact, recent = recent)
                 }
                 .onFailure { e ->
                     _state.value = _state.value.copy(loading = false, error = e.message ?: "Error")
@@ -46,13 +50,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    init {
-        GlobalScope.launch {
-            fetchNewFact()
-        }
-    }
-
-    data class UiState(
+    data class MainScreenState(
         val current: Fact? = null,
         val recent: List<Fact> = emptyList(),
         val loading: Boolean = false,
