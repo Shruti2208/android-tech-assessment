@@ -39,7 +39,7 @@ or advanced gradle configuration. Tests are entirely optional.
 **Given** I am on the home screen \
 **When** I press on the "More facts!" button \
 **Then** A new random fact is displayed \
-**And** The previously displayed fact is added to history only after the new fact has been successfully loaded
+**And** The previously displayed fact is added to history only after the new fact has been successfully displayed
 
 ### Scenario 3
 
@@ -50,7 +50,7 @@ or advanced gradle configuration. Tests are entirely optional.
 
 *The latest fact should be on top of the list  
 *History shows only previously loaded facts; the currently displayed home fact is excluded.
-*If the new fact fails to load or is cancelled, history remains unchanged.
+*If the new fact fails history remains unchanged.
 
 ### Scenario 4
 
