@@ -15,11 +15,11 @@ the challenge.
 
 ## Challenge
 
-Please, aim for 90–120 minutes; if you reach ~2 hours, please stop and note remaining fixes. 
+Please, aim for 90–120 minutes; if you reach ~2 hours, stop and note remaining fixes. 
 This is not a hard requirement, but we would be happy if you do not spend your whole weekend on it :)
 
 Given the acceptance criteria below, you should identify the missing parts of the code and implement them. 
-You also should find as much mistakes and errors as you can and fix them. If a fix would be too time‑consuming from your perspective, add a brief inline comment near the relevant code explaining the issue and how you would address it (use // NOTE: or // FIX:).
+You also should find as much mistakes and errors as you can and fix them. If a fix would be too time‑consuming from your perspective, add inline comment near the relevant code explaining the issue and how you would address it (use // NOTE: or // FIX:).
 
 While the feature itself is pretty simple, we encourage you to be creative and demonstrate your expertise when it comes
 to architecture, user experience, overall best practices and attention to details.
@@ -38,7 +38,8 @@ or advanced gradle configuration. Tests are entirely optional.
 
 **Given** I am on the home screen \
 **When** I press on the "More facts!" button \
-**Then** A new random fact is displayed
+**Then** A new random fact is displayed \
+**And** The previously displayed fact is added to history only after the new fact has been successfully loaded
 
 ### Scenario 3
 
@@ -49,6 +50,7 @@ or advanced gradle configuration. Tests are entirely optional.
 
 *The latest fact should be on top of the list  
 *History shows only previously loaded facts; the currently displayed home fact is excluded.
+*If the new fact fails to load or is cancelled, history remains unchanged.
 
 ### Scenario 4
 
