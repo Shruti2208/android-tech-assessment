@@ -48,15 +48,13 @@ or advanced gradle configuration. Tests are entirely optional.
 **Then** I am navigated to the history screen* \
 **And** The list of the last 10 loaded facts is displayed (with newer facts replacing older ones)
 
-*The latest fact should be on top of the list  
-*History shows only previously loaded facts; the currently displayed home fact is excluded.
-*If the new fact fails history remains unchanged.
+*The latest fact should be on top of the list. History shows only previously loaded facts; the currently displayed home fact is excluded. If the new fact fails history remains unchanged.
 
 ### Scenario 4
 
 **Given** I am on the history screen \
 **When** I press on the "Back" button (use back gesture) \
-**Then** I am navigated to the home screen* \
+**Then** I am navigated to the home screen\
 **And** The previous loaded fact is displayed
 
 ## Resources
