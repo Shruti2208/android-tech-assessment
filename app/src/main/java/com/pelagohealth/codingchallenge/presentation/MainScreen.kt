@@ -16,9 +16,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.pelagohealth.codingchallenge.R
 
 @Composable
 fun MainScreen(
@@ -68,14 +70,14 @@ fun MainScreen(
             onClick = { viewModel.fetchNewFact() },
             enabled = !state.loading
         ) {
-            Text("More facts!")
+            Text(stringResource(R.string.more_facts))
         }
         Spacer(modifier = Modifier.height(8.dp))
         Button(
             onClick = { viewModel.navigateToSecondScreen() },
             enabled = !state.loading
         ) {
-            Text("Show history")
+            Text(stringResource(R.string.show_history))
         }
     }
 }

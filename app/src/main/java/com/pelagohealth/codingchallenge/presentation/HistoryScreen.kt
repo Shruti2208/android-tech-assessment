@@ -18,8 +18,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.pelagohealth.codingchallenge.R
 
 @Composable
 fun HistoryScreen(
@@ -43,7 +45,7 @@ fun HistoryScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (history.isEmpty()) {
-            Text(text = "No history yet")
+            Text(text = stringResource(R.string.no_history))
         } else {
             LazyColumn(
                 modifier = Modifier
@@ -61,7 +63,7 @@ fun HistoryScreen(
         }
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = { viewModel.navigateHome() }) {
-            Text("Back")
+            Text(stringResource(R.string.back))
         }
     }
 }

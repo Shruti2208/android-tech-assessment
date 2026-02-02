@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Pelago Coding Challenge</string>
+    <string name="more_facts">More facts!</string>
+    <string name="show_history">Show history</string>
+    <string name="back">Back</string>
+    <string name="no_history">No history yet</string>
 </resources>
