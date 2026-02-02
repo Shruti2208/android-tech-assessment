@@ -6,9 +6,6 @@ import com.pelagohealth.codingchallenge.data.repository.FactRepository
 import com.pelagohealth.codingchallenge.domain.model.Fact
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -27,8 +24,9 @@ class MainViewModel @Inject constructor(
         this.navController = controller
     }
 
+    // FIX: Replaced GlobalScope with viewModelScope to properly tie coroutine lifecycle to ViewModel
     init {
-        GlobalScope.launch {
+        viewModelScope.launch {
             fetchNewFact()
         }
     }
@@ -37,15 +35,17 @@ class MainViewModel @Inject constructor(
         navController.navigate("history")
     }
 
+    // FIX: Replaced CoroutineScope(Dispatchers.Main) with viewModelScope
+    // FIX: Added proper error handling with error state instead of just println
     fun fetchNewFact() {
-        CoroutineScope(Dispatchers.Main).launch {
-            _state.value = MainScreenState(loading = true)
+        viewModelScope.launch {
+            _state.value = _state.value.copy(loading = true, error = null)
             runCatching { repository.get() }
                 .onSuccess { fact ->
                     _state.value = MainScreenState(current = fact)
                 }
                 .onFailure { e ->
-                    println(e)
+                    _state.value = _state.value.copy(loading = false, error = e.message ?: "Unknown error")
                 }
         }
     }
@@ -53,5 +53,6 @@ class MainViewModel @Inject constructor(
     data class MainScreenState(
         val current: Fact? = null,
         val loading: Boolean = false,
+        val error: String? = null,
     )
 }

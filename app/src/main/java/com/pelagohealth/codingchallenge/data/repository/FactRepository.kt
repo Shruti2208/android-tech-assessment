@@ -13,7 +13,8 @@ class FactRepository @Inject constructor(
     private val api: FactsRestApi
 ) {
     
-    suspend fun get(): Fact = withContext(Dispatchers.Default) {
+    // FIX: Changed from Dispatchers.Default to Dispatchers.IO for network operations
+    suspend fun get(): Fact = withContext(Dispatchers.IO) {
         val dto = api.getFact()
         Fact(text = dto.text, url = dto.sourceUrl)
     }
