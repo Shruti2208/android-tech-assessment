@@ -19,7 +19,17 @@ class MainViewModel @Inject constructor(
 
     private val _state = MutableStateFlow(MainScreenState())
     val state: StateFlow<MainScreenState> = _state
+
+    // TODO: NavController in ViewModel is an anti-pattern - couples ViewModel to Android framework.
+    // Better approach: pass navigation callbacks as lambdas to composables, keeping ViewModel unaware of navigation.
     private lateinit var navController: NavController
+
+    // TODO: Add unit tests for MainViewModel:
+    // - Test initial state triggers fetchNewFact()
+    // - Test successful fetch updates state with fact
+    // - Test failed fetch updates state with error
+    // - Test previous fact added to history only on success
+    // - Use fake FactRepository for isolation
 
     fun attachNavController(controller: NavController) {
         this.navController = controller

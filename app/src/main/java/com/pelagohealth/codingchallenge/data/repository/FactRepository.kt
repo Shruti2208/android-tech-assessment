@@ -12,6 +12,12 @@ import javax.inject.Singleton
 
 /**
  * Repository providing random facts and managing history.
+ *
+ * TODO: Add unit tests for FactRepository:
+ * - Test get() maps API response to domain model correctly
+ * - Test addToHistory() adds fact to front of list
+ * - Test history limited to 10 items (oldest removed)
+ * - Use MockWebServer or mock FactsRestApi
  */
 @Singleton
 class FactRepository @Inject constructor(

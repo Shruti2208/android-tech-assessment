@@ -22,6 +22,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.pelagohealth.codingchallenge.R
 
+// TODO: Add UI tests using Compose Testing:
+// - Test loading state shows CircularProgressIndicator
+// - Test error state displays error message
+// - Test fact displayed when loaded
+// - Test "More facts!" button triggers fetchNewFact()
+// - Test buttons disabled during loading
 @Composable
 fun MainScreen(
     viewModel: MainViewModel,
