@@ -25,11 +25,8 @@ class MainViewModel @Inject constructor(
         this.navController = controller
     }
 
-    // FIX: Replaced GlobalScope with viewModelScope to properly tie coroutine lifecycle to ViewModel
     init {
-        viewModelScope.launch {
-            fetchNewFact()
-        }
+        fetchNewFact()
     }
 
     fun navigateToSecondScreen() {

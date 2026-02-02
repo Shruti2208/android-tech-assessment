@@ -39,23 +39,28 @@ fun MainScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // FIX: Replaced !! with safe let calls to avoid potential NPE
         when {
             state.loading -> {
                 CircularProgressIndicator()
             }
             state.error != null -> {
-                Text(
-                    text = state.error!!,
-                    color = MaterialTheme.colorScheme.error,
-                    textAlign = TextAlign.Center
-                )
+                state.error?.let { error ->
+                    Text(
+                        text = error,
+                        color = MaterialTheme.colorScheme.error,
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
             state.current != null -> {
-                Text(
-                    text = state.current!!.text,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.bodyLarge
-                )
+                state.current?.let { fact ->
+                    Text(
+                        text = fact.text,
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
             }
         }
         Spacer(modifier = Modifier.height(24.dp))
