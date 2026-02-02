@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -20,9 +21,14 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class DataModule {
 
     // FIX: Added @Singleton to avoid creating new instances on every injection
+    // FIX: Added timeout configuration to prevent indefinite hangs
     @Provides
     @Singleton
-    fun provideOkHttp(): OkHttpClient = OkHttpClient.Builder().build()
+    fun provideOkHttp(): OkHttpClient = OkHttpClient.Builder()
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
+        .build()
 
     // FIX: Added @Singleton to avoid creating new instances on every injection
     @Provides
