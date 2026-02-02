@@ -4,19 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.pelagohealth.codingchallenge.data.repository.FactRepository
 import com.pelagohealth.codingchallenge.domain.model.Fact
-import com.pelagohealth.codingchallenge.presentation.MainViewModel.MainScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
-    private var repository: FactRepository
+    private val repository: FactRepository
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(HistoryScreenState())
-    val state: StateFlow<HistoryScreenState> = _state
+    val history: StateFlow<List<Fact>> = repository.history
 
     private lateinit var navController: NavController
 
@@ -25,11 +22,6 @@ class HistoryViewModel @Inject constructor(
     }
 
     fun navigateHome() {
-        navController.navigate("home")
+        navController.popBackStack()
     }
-
-    data class HistoryScreenState(
-        val facts: List<Fact>? = null,
-        val loading: Boolean = false,
-    )
 }
