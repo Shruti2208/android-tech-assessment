@@ -13,7 +13,8 @@ import androidx.navigation.NavController
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private var repository: FactRepository
+    // FIX: Changed var to val - injected dependencies should be immutable
+    private val repository: FactRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(MainScreenState())

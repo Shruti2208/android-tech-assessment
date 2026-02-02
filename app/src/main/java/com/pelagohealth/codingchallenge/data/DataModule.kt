@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -18,10 +19,14 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 @InstallIn(SingletonComponent::class)
 class DataModule {
 
+    // FIX: Added @Singleton to avoid creating new instances on every injection
     @Provides
+    @Singleton
     fun provideOkHttp(): OkHttpClient = OkHttpClient.Builder().build()
 
+    // FIX: Added @Singleton to avoid creating new instances on every injection
     @Provides
+    @Singleton
     fun provideFactsApi(okHttpClient: OkHttpClient): FactsRestApi =
         Retrofit.Builder()
             .baseUrl("https://uselessfacts.jsph.pl/api/v2/")
