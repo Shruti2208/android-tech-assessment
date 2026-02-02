@@ -39,9 +39,12 @@ class MainViewModel @Inject constructor(
     // FIX: Added proper error handling with error state instead of just println
     fun fetchNewFact() {
         viewModelScope.launch {
+            val previousFact = _state.value.current
             _state.value = _state.value.copy(loading = true, error = null)
             runCatching { repository.get() }
                 .onSuccess { fact ->
+                    // Add previous fact to history only after new fact is successfully fetched
+                    previousFact?.let { repository.addToHistory(it) }
                     _state.value = MainScreenState(current = fact)
                 }
                 .onFailure { e ->
